@@ -59,11 +59,23 @@ class ContentLoader
         return $this->createArrayFromInput($matches[1][self::$TEST_CODE_BLOCK_NUMBER]);
     }
 
+    /**
+     * @param int $year
+     * @param int $day
+     *
+     * @return string
+     */
     private function constructTaskUrl(int $year, int $day): string
     {
         return "https://adventofcode.com/$year/day/$day";
     }
 
+    /**
+     * @param int $year
+     * @param int $day
+     *
+     * @return string
+     */
     private function constructInputUrl(int $year, int $day): string
     {
         return $this->constructTaskUrl($year, $day) . '/input';
@@ -84,6 +96,8 @@ class ContentLoader
     }
 
     /**
+     * @param $year
+     *
      * @return float
      */
     public function getAvailableDays($year): float
@@ -97,6 +111,8 @@ class ContentLoader
     }
 
     /**
+     * @param $year
+     *
      * @return float
      */
     public function getActiveDay($year): float
