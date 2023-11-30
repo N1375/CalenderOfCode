@@ -1,0 +1,12 @@
+{
+    "name": "njmjanssen/adventofcodemaker",
+    "description": "Advent of Code Maker",
+    "type": "project",
+    "require": {
+    },
+    "authors": [
+        {
+            "name": "NJM Janssen"
+        }
+    ]
+}
