@@ -24,7 +24,7 @@ function getVal($value, $array = null, $default = null): mixed
  */
 function constructNamespace(int $year, int $day): string
 {
-    return "Days\{$year}\Day" . str_pad($day, 2, "0", STR_PAD_LEFT);
+    return "Days\\$year\Day" . str_pad($day, 2, "0", STR_PAD_LEFT);
 }
 
 /**

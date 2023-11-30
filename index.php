@@ -6,9 +6,9 @@ require_once("Util/ContentLoader.php");
 require_once 'Util/functions.php';
 
 $contentLoader = new ContentLoader();
-$days = $contentLoader->getAvailableDays();
-$activeDay = $contentLoader->getActiveDay();
 $year ??= getVal('year') ?? 2023;
+$days = $contentLoader->getAvailableDays($year);
+$activeDay = $contentLoader->getActiveDay($year);
 ?>
 <!doctype html>
 <html lang="en">
@@ -45,7 +45,7 @@ $year ??= getVal('year') ?? 2023;
                 <aside class="tabs is-boxed is-small">
                     <ul>
                         <?php for ($i = 1; $i <= $days; $i++): ?>
-                            <li <?php if ($i == $activeDay && $year != date('Y')): ?>class="is-active" <?php endif; ?>id="tab-<?= $i; ?>" data-day="<?= $i; ?>">
+                            <li <?php if ($i == $activeDay): ?>class="is-active" <?php endif; ?>id="tab-<?= $i; ?>" data-day="<?= $i; ?>">
                                 <a onclick="openDay(<?= $i; ?>)"><?= $i; ?></a>
                             </li>
                         <?php endfor; ?>
@@ -147,7 +147,8 @@ $year ??= getVal('year') ?? 2023;
     }
 
     function updateResults(day) {
-        const createButton = part => `<button class="button is-small is-info" onclick="createClass(${day}, ${part})">Create Class</button>`;
+        const year = document.querySelector('#yearSelector').value;
+        const createButton = part => `<button class="button is-small is-info" onclick="createClass(${year}, ${day}, ${part})">Create Class</button>`;
         const isNotImplemented = res => res === "Class dont exists";
 
         const firstResult = results[day - 1][0]['result'];
@@ -173,8 +174,9 @@ $year ??= getVal('year') ?? 2023;
             {'result': 'Loading...', 'execTime': ''}
         ];
         updateResults(activeDay)
+        const year = document.querySelector('#yearSelector').value;
 
-        let url = `run.php?day=${activeDay}`;
+        let url = `run.php?year=${year}&day=${activeDay}`;
 
         if (test)
             url += '&test=1';
@@ -215,8 +217,8 @@ $year ??= getVal('year') ?? 2023;
         box.classList.remove('is-hidden');
     }
 
-    function createClass(day, part) {
-        fetch(`create.php?day=${day}&part=${part}`)
+    function createClass(year, day, part) {
+        fetch(`create.php?year=${year}&day=${day}&part=${part}`)
             .then(async r => {
                 const res = await r.text();
 

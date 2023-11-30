@@ -24,9 +24,6 @@ class App
      */
     public function run(): void
     {
-        if (!isset($_GET['year'])) {
-            $this->badRequest("Please specify required argument `year`");
-        }
         if (!isset($_GET['day'])) {
             $this->badRequest("Please specify required argument `day`");
         }

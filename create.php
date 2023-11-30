@@ -8,10 +8,10 @@ $part = getVal('part');
 if (is_null($day) || is_null($part))
     exit(0);
 
-$classFullName = constructDayClassFullName($day, $part);
+$classFullName = constructDayClassFullName($year, $day, $part);
 $fileName = str_replace('\\', DIRECTORY_SEPARATOR, $classFullName).'.php';
 
-$namespace = constructNamespace($day);
+$namespace = constructNamespace($year, $day);
 $className = constructDayClassName($day, $part);
 $extends = $part == 2
     ? "extends " . constructDayClassName($day, 1)

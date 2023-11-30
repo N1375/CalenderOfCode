@@ -86,10 +86,10 @@ class ContentLoader
     /**
      * @return float
      */
-    public function getAvailableDays(): float
+    public function getAvailableDays($year): float
     {
         $now = time();
-        $startDate = strtotime("2022-12-01 00:00:00");
+        $startDate = strtotime($year . "-12-01 00:00:00");
         $diff = $now - $startDate;
         $daysFromStart = ceil($diff / (60 * 60 * 24));
 
@@ -99,9 +99,9 @@ class ContentLoader
     /**
      * @return float
      */
-    public function getActiveDay(): float
+    public function getActiveDay($year): float
     {
-        if (time() > strtotime('2022-12-25'))
+        if (time() > strtotime($year . '-12-25'))
             return 1;
 
         return date('d');
