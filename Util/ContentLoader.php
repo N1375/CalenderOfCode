@@ -134,7 +134,7 @@ class ContentLoader
         if (count($input) > 1)
             array_pop($input);
 
-        return count($input) === 1 ? mb_str_split($input[0]) : $input;
+        return count($input) === 1 ? str_split($input[0]) : $input;
 
     }
 
