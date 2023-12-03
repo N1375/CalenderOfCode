@@ -21,7 +21,7 @@ class Day3First  implements \Days\Day
             foreach ($row as $c => $char){
                 if (is_numeric($char)) {
                     $number = ($number * 10) + (int)$char;
-                } else {
+                } elseif($number !== 0) {
                     for ($i = strlen($number); $i > 0; $i--) {
                         if ($this->lookAround($grid, $r, $c - $i)) {
                             $total += $number;
