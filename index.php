@@ -11,13 +11,13 @@ $days = $contentLoader->getAvailableDays($year);
 $activeDay = $contentLoader->getActiveDay($year);
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="author" content="NJM Janssen">
     <title>Advent of Code Maker</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
@@ -28,10 +28,11 @@ $activeDay = $contentLoader->getActiveDay($year);
 <div class="container p-4">
     <div class="box">
         <h1 class="title">Advent of Code <select name="year" id="yearSelector" onchange="openYear(this.value);">
-                <?php for ($i = (int)date("Y"); $i >= 2015; $i--): ?>
-                    <option value="<?= $i; ?>"<?= ($year == $i) ? ' selected' : ''; ?>><?= $i; ?></option>
+            <?php for ($i = (int)date("Y"); $i >= 2015; $i--): ?>
+                <option value="<?= $i; ?>"<?= ($year == $i) ? ' selected' : ''; ?>><?= $i; ?></option>
                 <?php endfor; ?>
             </select>
+            <button type="button" class="button is-success is-small is-pulled-right" onclick="toggleDarkMode()">Toggle Darkmode</button>
         </h1>
         <p><em>Advent of Code</em> is an <a href="https://en.wikipedia.org/wiki/Advent_calendar">Advent calendar</a> of small programming puzzles for a variety of skill sets and skill levels that can be solved in <a href="https://github.com/search?q=advent+of+code">any</a> programming language you like.</p>
     </div>
@@ -237,10 +238,44 @@ $activeDay = $contentLoader->getActiveDay($year);
         loadTask(activeSection, activeDay);
     }
 
+    function toggleDarkMode() {
+        const html = document.querySelector('html');
+        const currentTheme = html.dataset.bsTheme;
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.dataset.bsTheme = newTheme;
+
+        if (newTheme === 'dark') {
+            loadBulmaDarkmode();
+        } else {
+            unloadBulmaDarkmode();
+        }
+
+        localStorage.setItem('theme', newTheme);
+    }
+
+    function loadBulmaDarkmode() {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://unpkg.com/bulma-prefers-dark';
+        link.id = 'bulma-darkmode';
+        document.head.appendChild(link);
+    }
+
+    function unloadBulmaDarkmode() {
+        const link = document.querySelector('#bulma-darkmode');
+        link.remove();
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         const activeDay = getActiveDay();
         const activeSection = document.querySelector(`#day-${activeDay}`);
         loadTask(activeSection, activeDay);
+
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+            toggleDarkMode();
+        }
     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
