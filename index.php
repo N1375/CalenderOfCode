@@ -32,7 +32,7 @@ $activeDay = $contentLoader->getActiveDay($year);
                 <option value="<?= $i; ?>"<?= ($year == $i) ? ' selected' : ''; ?>><?= $i; ?></option>
                 <?php endfor; ?>
             </select>
-            <button type="button" class="button is-success is-small is-pulled-right" onclick="toggleDarkMode()">Toggle Darkmode</button>
+            <button type="button" class="button is-success is-pulled-right" onclick="toggleDarkMode()">Toggle Darkmode</button>
         </h1>
         <p><em>Advent of Code</em> is an <a href="https://en.wikipedia.org/wiki/Advent_calendar">Advent calendar</a> of small programming puzzles for a variety of skill sets and skill levels that can be solved in <a href="https://github.com/search?q=advent+of+code">any</a> programming language you like.</p>
     </div>
@@ -257,7 +257,7 @@ $activeDay = $contentLoader->getActiveDay($year);
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = 'https://unpkg.com/bulma-prefers-dark';
+        link.href = 'https://jenil.github.io/bulmaswatch/darkly/bulmaswatch.min.css';
         link.id = 'bulma-darkmode';
         document.head.appendChild(link);
     }
