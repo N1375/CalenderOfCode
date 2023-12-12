@@ -120,7 +120,23 @@ body{background-color: darkred;}
             default: return'';
         }
     }
+
+    /**
+     * @param $map
+     * @param $x
+     * @param $y
+     *
+     * @return array[]
+     */
+    public function getNext($map, $x, $y): array
+    {
+        return match ($map[$x][$y]) {
+            '|' => [[$x - 1, $y], [$x + 1, $y]],
+            '-' => [[$x, $y - 1], [$x, $y + 1]],
+            'F' => [[$x + 1, $y], [$x, $y + 1]],
+            '7' => [[$x + 1, $y], [$x, $y - 1]],
+            'J' => [[$x - 1, $y], [$x, $y - 1]],
+            'L' => [[$x - 1, $y], [$x, $y + 1]],
+        };
+    }
 }
-
-
-// 35,

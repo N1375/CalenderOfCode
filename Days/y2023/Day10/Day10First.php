@@ -36,11 +36,12 @@ class Day10First  implements \Days\Day
         }
 
         $path[$startX][$startY] = 0;
-        $newlocations = $this->checkAround($map,$startX, $startY);
+//        $newlocations = $this->checkAround($map,$startX, $startY);
+        $newlocations = [[$startX, $startY]];
 
 
         for ($i = 0; $i < count($newlocations); $i++) {
-            $locations = $this->getNext($map, $newlocations[$i][0], $newlocations[$i][1]);
+            $locations = $this->checkAround($map, $newlocations[$i][0], $newlocations[$i][1]);
             foreach ($locations as $pos) {
                 if (!isset($path[$pos[0]][$pos[1]])) {
                     $nr = $path[$newlocations[$i][0]][$newlocations[$i][1]] + 1;
@@ -81,25 +82,6 @@ class Day10First  implements \Days\Day
             $return[] = [$x, $y+1];
         }
         return $return;
-    }
-
-    /**
-     * @param $map
-     * @param $x
-     * @param $y
-     *
-     * @return array[]
-     */
-    public function getNext($map, $x, $y): array
-    {
-        return match ($map[$x][$y]) {
-            '|' => [[$x - 1, $y], [$x + 1, $y]],
-            '-' => [[$x, $y - 1], [$x, $y + 1]],
-            'F' => [[$x + 1, $y], [$x, $y + 1]],
-            '7' => [[$x + 1, $y], [$x, $y - 1]],
-            'J' => [[$x - 1, $y], [$x, $y - 1]],
-            'L' => [[$x - 1, $y], [$x, $y + 1]],
-        };
     }
 
     /**
