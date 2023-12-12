@@ -16,8 +16,9 @@ class Day12First implements \Days\Day
 
     public function run(array $input): int|string
     {
-        if (file_exists('first.txt')){
-            return file_get_contents('first.txt');
+        $path = 'Days/y2023/Day12/';
+        if (file_exists($path.'first.txt')){
+            return file_get_contents($path. 'first.txt');
         }
         if (isset($_GET['test'])) {
             $input = [
