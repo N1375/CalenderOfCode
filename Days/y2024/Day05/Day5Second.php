@@ -24,13 +24,8 @@ class Day5Second extends Day5First implements \Days\Day
 
         foreach ($data as $check) {
             $value = $this->checkPage($list,$check);
-            if($value != false)
-                $total += $value;
-            while(true) {
-                $newCheck = $this->reorder($list, $check);
-                if($newCheck != false) break;
-            }
-            $total += $this->checkPage($list,$newCheck);
+            if($value === false)
+                $total += $this->checkPage($list,$this->reorder($list, $check));
         }
 
         return $total;
@@ -38,15 +33,20 @@ class Day5Second extends Day5First implements \Days\Day
 
     public function reorder($list, $data)
     {
-        foreach ($list as $rule) {
-            if (in_array($rule[0], $data) && in_array($rule[1], $data)) {
-                $beforeIndex = array_search($rule[0], $data);
-                $afterIndex = array_search($rule[1], $data);
-
-                if ($beforeIndex > $afterIndex) {
-                    $temp = $data[$beforeIndex];
-                    $data[$beforeIndex] = $data[$afterIndex];
-                    $data[$afterIndex] = $temp;
+        $changed = true;
+        while ($changed) {
+            $changed = false;
+            foreach ($list as $rule) {
+                if (in_array($rule[0], $data) && in_array($rule[1], $data)) {
+                    $beforeIndex = array_search($rule[0], $data);
+                    $afterIndex = array_search($rule[1], $data);
+    
+                    if ($beforeIndex > $afterIndex) {
+                        $temp = $data[$beforeIndex];
+                        $data[$beforeIndex] = $data[$afterIndex];
+                        $data[$afterIndex] = $temp;
+                        $changed = true;
+                    }
                 }
             }
         }
