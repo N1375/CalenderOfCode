@@ -6,7 +6,7 @@ require_once("Util/ContentLoader.php");
 require_once 'Util/functions.php';
 
 $contentLoader = new ContentLoader();
-$year ??= getVal('year') ?? 2023;
+$year ??= getVal('year') ?? 2024;
 $days = $contentLoader->getAvailableDays($year);
 $activeDay = $contentLoader->getActiveDay($year);
 ?>

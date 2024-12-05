@@ -25,7 +25,12 @@ class $className $extends implements \Days\Day
 {
     public function run(array \$input): int|string
     {
-        return 'Not Implemented';
+                \$total = 0;
+        foreach (\$input as \$row) {
+
+        }
+
+        return \$total;
     }
 }
 ";
