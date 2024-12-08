@@ -19,7 +19,11 @@ class Day7First  implements \Days\Day
         foreach($combinations as $combination){
             $total = $numbers[0];
             for ($i = 1; $i < count($numbers); $i++) {
-                $total = eval("return ". $total ." " . $combination[$i] . " " . $numbers[$i] . ";");
+                if ($combination[$i-1]=='||'){
+                    $total = $total . $numbers[$i];
+                }else {
+                    $total = eval("return " . $total . " " . $combination[$i - 1] . " " . $numbers[$i] . ";");
+                }
             }
             if($total == $sum){
                 return $sum;
@@ -29,7 +33,8 @@ class Day7First  implements \Days\Day
         return 0;
     }
 
-    public function getOperatorCombinations($operators, $count) {
+    public function getOperatorCombinations(array $operators, int $count): array
+    {
         $combinations = [];
         if ($count == 1) {
             foreach ($operators as $operator) {
